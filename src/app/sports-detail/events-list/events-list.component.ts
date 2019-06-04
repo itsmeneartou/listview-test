@@ -1,6 +1,7 @@
-import { Component, OnInit, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ChangeDetectionStrategy, NgZone } from '@angular/core';
 import {Algolia} from "nativescript-algolia";
 import { ListView } from "tns-core-modules/ui/list-view";
+import { Subject } from 'rxjs';
 var client = new Algolia('702V7C2Q3E', 'aa6e6b1af25d06c9d5def0c1de7e6a36');
 var index = client.initIndex('playing_requests');
 
@@ -13,32 +14,39 @@ var index = client.initIndex('playing_requests');
 export class EventsListComponent implements OnInit {
  
   events:Array<any>=new Array<any>();
+  events$:Subject<any>=new Subject();
   listView:ListView;
-  constructor(private ref:ChangeDetectorRef) { }
+  constructor(private ref:ChangeDetectorRef,private ngZone:NgZone) { }
 
   ngOnInit() {
     console.log('ngOnInit in events');
-    index.search('',(content, err)=> {
-      if(err==null){
-        if(content.hits!=null){
-          this.events=new Array<any>(); 
-         
-          content.hits.forEach(hit=>this.events.push(hit));
-          if(this.events.length>0)console.log('events lngth=',this.events.length);
-        }       
-        if(this.listView!=null){
-          console.log('events list view is not null');
-          this.listView.refresh();
-          
+   
+      index.search('',(content, err)=> {
+        if(err==null){
+          if(content.hits!=null){
+            let newEvents=[];
+            content.hits.forEach(hit=>newEvents.push(hit));
+            this.events=newEvents;
+            this.ngZone.run(()=>{
+              console.log(newEvents.length,' new events length');
+              this.events$.next(newEvents)
+              this.ref.detectChanges();       
+              if(this.listView!=null){
+                console.log('list view is not null');
+                this.listView.refresh();
+               
+              }
+            })
+          }
+  
+  
         }
-        this.ref.detectChanges();
-       
-      }
-      else{
-        console.log('error',err);
-      }
-
-    });
+        else{
+          console.log('error',err);
+        }
+  
+      });
+   
   }
 
   onListViewLoaded(args){
@@ -51,7 +59,8 @@ export class EventsListComponent implements OnInit {
       console.log('item tapped in events',$event.index);
     }
     onSetupItemView($event){
-      console.log('onSetup called in events')
+      console.log('onSetup called in events');
+  
     }
 
 }

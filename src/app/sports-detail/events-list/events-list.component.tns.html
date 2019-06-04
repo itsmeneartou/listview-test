@@ -1,4 +1,4 @@
-<ListView class="list-group" #listView  [items]="events" (onItemTap)="onItemTap($event)"
+<ListView class="list-group" #listView  [items]="events$|async" (onItemTap)="onItemTap($event)"
 (setupItemView)="onSetupItemView($event)"
   (loaded)="onListViewLoaded($event)">
     <ng-template let-event="item" >

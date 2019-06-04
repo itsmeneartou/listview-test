@@ -2,7 +2,7 @@
 
 <ListView
 class="list-group"
-[items]="players"
+[items]="players$|async"
 (onItemTap)="onItemTap($event)"
 (setupItemView)="onSetupItemView($event)"
 (loaded)="onListViewLoaded($event)"
