@@ -13,7 +13,7 @@ let europianCountries = ["Austria", "Belgium", "Bulgaria", "Croatia", "Cyprus", 
 })
 export class HomeComponent implements AfterViewInit,OnChanges {
   title = 'listview-test';
-  players:Array<any>;
+  players:Array<any>=[];
   listView:ListView;
   constructor(
     private ref: ChangeDetectorRef) {
