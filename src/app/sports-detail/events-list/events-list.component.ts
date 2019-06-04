@@ -17,6 +17,7 @@ export class EventsListComponent implements OnInit {
   constructor(private ref:ChangeDetectorRef) { }
 
   ngOnInit() {
+    console.log('ngOnInit in events');
     index.search('',(content, err)=> {
       if(err==null){
         if(content.hits!=null){
@@ -26,9 +27,8 @@ export class EventsListComponent implements OnInit {
           if(this.events.length>0)console.log('events lngth=',this.events.length);
         }       
         if(this.listView!=null){
-          console.log('list view is not null');
+          console.log('events list view is not null');
           this.listView.refresh();
-          console.log('list view size',this.listView.getActualSize());
           
         }
         this.ref.detectChanges();
@@ -44,14 +44,14 @@ export class EventsListComponent implements OnInit {
   onListViewLoaded(args){
     this.listView = args.object as ListView;
     this.listView.refresh();
-    console.log('hede');
+    console.log('listview loaded in events');
     }
 
     onItemTap($event){
-      console.log('item tapped',$event.index);
+      console.log('item tapped in events',$event.index);
     }
     onSetupItemView($event){
-      console.log('onSetup called')
+      console.log('onSetup called in events')
     }
 
 }

@@ -36,7 +36,7 @@ export class HomeComponent implements AfterViewInit,OnChanges {
   onListViewLoaded(args){
     this.listView = args.object as ListView;
     this.listView.refresh();
-    console.log('hede');
+
     }
 
     onItemTap($event){

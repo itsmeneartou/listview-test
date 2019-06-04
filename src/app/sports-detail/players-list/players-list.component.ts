@@ -18,7 +18,7 @@ export class PlayersListComponent implements OnInit {
   constructor(private ref:ChangeDetectorRef) { }
 
   ngOnInit() {
-  console.log('hede');
+  console.log('ngOnInit in players');
     index.search('',(content, err)=> {
       if(err==null){
         if(content.hits!=null){
@@ -28,9 +28,8 @@ export class PlayersListComponent implements OnInit {
           if(this.players.length>0)console.log('players lngth=',this.players.length);
         }       
         if(this.listView!=null){
-          console.log('list view is not null');
+          console.log('players list view is not null');
           this.listView.refresh();
-          console.log('list view size',this.listView.getActualSize());
           
         }
         this.ref.detectChanges();
@@ -46,14 +45,14 @@ export class PlayersListComponent implements OnInit {
   onListViewLoaded(args){
     this.listView = args.object as ListView;
     this.listView.refresh();
-    console.log('hede');
+    console.log('listview loaded in players');
     }
 
     onItemTap($event){
-      console.log('item tapped',$event.index);
+      console.log('item tapped in players',$event.index);
     }
     onSetupItemView($event){
-      console.log('onSetup called')
+      console.log('onSetup called in players')
     }
 
 }
