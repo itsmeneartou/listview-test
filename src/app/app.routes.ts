@@ -5,11 +5,10 @@ import { HomeComponent } from './home/home.component';
 export const routes: Routes = [
   {
       path: '',
-      redirectTo: '/home',
-      pathMatch: 'full',
+      component:HomeComponent
   },
   {
-      path: 'home',
-      component: HomeComponent,
+    path: "sports/:sport",
+    loadChildren: "./sports-detail/sports-detail.module.tns#SportsDetailModule",
   },
 ];

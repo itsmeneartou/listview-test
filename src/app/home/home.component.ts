@@ -1,8 +1,6 @@
 import { Component, AfterViewInit, OnChanges, SimpleChanges } from '@angular/core';
-import {Algolia} from "nativescript-algolia";
 import { ListView } from "tns-core-modules/ui/list-view";
-var client = new Algolia('702V7C2Q3E', 'aa6e6b1af25d06c9d5def0c1de7e6a36');
-var index = client.initIndex('players');
+import {sportsList} from '../../assets/rtdb_data/sports-list';
 
 @Component({
   selector: 'app-home',
@@ -10,43 +8,29 @@ var index = client.initIndex('players');
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements AfterViewInit,OnChanges {
-  title = 'listview-test';
-  players:Array<any>=new Array<any>();
+  title = 'Available Sports';
+  sports:Array<any>=new Array<any>();
   listView:ListView;
   constructor(
    ) {
+           
+    this.sports=Object.keys(sportsList).map(key=>{
 
-
-     
-     }
+      let sport= sportsList[key];
+      sport.imageSource = "../assets/" + sport.name + ".svg";
+      return sport;
+     });
+   }
 
     ngOnChanges(changes:SimpleChanges){
       console.log(changes);
     }
 
   ngAfterViewInit() {
-    
-    index.search('',(content, err)=> {
-      if(err==null){
-        if(content.hits!=null){
-          this.players=new Array<any>(); 
-         
-          content.hits.forEach(hit=>this.players.push(hit));
-          if(this.players.length>0)console.log('players lngth=',this.players.length);
-        }       
-        if(this.listView!=null){
-          console.log('list view is not null');
-          this.listView.refresh();
-          console.log('list view size',this.listView.getActualSize());
-          
-        }
-       
-      }
-      else{
-        console.log('error',err);
-      }
 
-    });
+
+    
+
     
   }
   onListViewLoaded(args){

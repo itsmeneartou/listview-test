@@ -2,6 +2,22 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "module": "es2015",
-    "moduleResolution": "node"
-  }
+    "moduleResolution": "node",
+    "baseUrl": "./",
+    "paths": {
+      "~/*": [
+          "src/*"
+      ],
+      "*": [
+        "./node_modules/tns-core-modules/*",
+        "./node_modules/*"
+      ]
+    },
+
+  },
+  "exclude": [
+    "**/*.android.ts",
+    "**/*.ios.ts",
+    "**/*.spec.ts"
+  ]
 }

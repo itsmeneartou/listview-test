@@ -1,33 +1,12 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <ActionBar [title]="title"></ActionBar>
-
-
-<ListView
-  class="list-group"
-  [items]="players"
-  (onItemTap)="onItemTap($event)"
-  (setupItemView)="onSetupItemView($event)"
-  (loaded)="onListViewLoaded($event)"
-  #listView
->
-  <ng-template let-player="item">
-    <GridLayout class="list-group-item" rows="*" columns="auto, *">
-   
-      <StackLayout col="1">
-        <Label 
-          [text]="player.displayName"
-          class="list-group-item-heading"
-        ></Label>
-        <Label
-          [text]="player.uid"
-          class="list-group-item-text"
-          textWrap="true"
-        ></Label>
-      </StackLayout>
-    </GridLayout>
-
-  
-  </ng-template>
+<ListView [items]="sports" (itemTap)="onItemTap($event)" class="list-group">
+    <ng-template let-sport="item" let-i="index" let-odd="odd" let-even="even">
+        <!-- The item template can only have a single root view container (e.g. GridLayout, StackLayout, etc.)-->
+        <StackLayout  [nsRouterLink]="['/sports', sport.name]" orientation="horizontal" class="list-group-item">
+            <Label [text]="sport.uiName"></Label>
+        </StackLayout>
+    </ng-template>
 </ListView>
 
 

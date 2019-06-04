@@ -1,0 +1,23 @@
+<ListView class="list-group" #listView  [items]="events"  (loaded)="onListViewLoaded($event)">
+    <ng-template let-event="item" >
+      <GridLayout class="list-group-item" rows="*" columns="auto, *">
+        <Image
+          col="0"
+          [src]="event.eventCreatorPhotoUrl"
+          class="thumb img-circle"
+        ></Image>
+        <StackLayout col="1">
+          <Label
+            [text]="event.eventCreatorName"
+            class="list-group-item-heading"
+          ></Label>
+          <Label
+            text="{{ event.eventLocationAsString }}"
+            class="list-group-item-text"
+            textWrap="true"
+          ></Label>
+        </StackLayout>
+      </GridLayout>
+    </ng-template>
+  </ListView>
+  
