@@ -1,0 +1,33 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<ActionBar [title]="title"></ActionBar>
+
+
+<ListView
+  class="list-group"
+  [items]="players"
+  (onItemTap)="onItemTap($event)"
+  (setupItemView)="onSetupItemView($event)"
+  (loaded)="onListViewLoaded($event)"
+  #listView
+>
+  <ng-template let-player="item">
+    <GridLayout class="list-group-item" rows="*" columns="auto, *">
+   
+      <StackLayout col="1">
+        <Label 
+          [text]="player.displayName"
+          class="list-group-item-heading"
+        ></Label>
+        <Label
+          [text]="player.uid"
+          class="list-group-item-text"
+          textWrap="true"
+        ></Label>
+      </StackLayout>
+    </GridLayout>
+
+  
+  </ng-template>
+</ListView>
+
+
