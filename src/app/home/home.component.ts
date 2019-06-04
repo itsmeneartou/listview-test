@@ -30,17 +30,18 @@ export class HomeComponent implements AfterViewInit,OnChanges {
     index.search('',(content, err)=> {
       if(err==null){
         if(content.hits!=null){
-          this.players=new Array<any>();
+          this.players=new Array<any>(); 
          
           content.hits.forEach(hit=>this.players.push(hit));
-          if(this.players.length>0)console.log('players length=',this.players.length);
+          if(this.players.length>0)console.log('players lngth=',this.players.length);
         }       
         if(this.listView!=null){
           console.log('list view is not null');
           this.listView.refresh();
           console.log('list view size',this.listView.getActualSize());
-          this.ref.markForCheck();
+          
         }
+        this.ref.detectChanges(); 
       }
       else{
         console.log('error',err);
@@ -59,7 +60,7 @@ export class HomeComponent implements AfterViewInit,OnChanges {
       console.log('item tapped',$event.index);
     }
     onSetupItemView($event){
-      console.log('onSetup',$event)
+      console.log('onSetup called')
     }
   
 }
