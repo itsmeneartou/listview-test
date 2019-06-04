@@ -12,11 +12,11 @@ var index = client.initIndex('players');
 })
 export class HomeComponent implements AfterViewInit,OnChanges {
   title = 'listview-test';
-  players:Array<any>;
+  players:Array<any>=new Array<any>();
   listView:ListView;
   constructor(
     private ref: ChangeDetectorRef) {
-      this.players = [];
+
 
      
      }
@@ -30,7 +30,7 @@ export class HomeComponent implements AfterViewInit,OnChanges {
     index.search('',(content, err)=> {
       if(err==null){
         if(content.hits!=null){
-          this.players=[];
+          this.players=new Array<any>();
          
           content.hits.forEach(hit=>this.players.push(hit));
           if(this.players.length>0)console.log('players length=',this.players.length);
