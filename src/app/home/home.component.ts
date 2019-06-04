@@ -1,9 +1,10 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, AfterViewInit, OnChanges, SimpleChanges } from '@angular/core';
-import {Algolia} from "nativescript-algolia";
 import { ListView } from "tns-core-modules/ui/list-view";
-var client = new Algolia('702V7C2Q3E', 'aa6e6b1af25d06c9d5def0c1de7e6a36');
-var index = client.initIndex('players');
 
+let europianCountries = ["Austria", "Belgium", "Bulgaria", "Croatia", "Cyprus", "Czech Republic",
+    "Denmark", "Estonia", "Finland", "France", "Germany", "Greece", "Hungary", "Ireland", "Italy",
+    "Latvia", "Lithuania", "Luxembourg", "Malta", "Netherlands", "Poland", "Portugal", "Romania", "Slovakia",
+    "Slovenia", "Spain", "Sweden", "United Kingdom"];
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -18,7 +19,9 @@ export class HomeComponent implements AfterViewInit,OnChanges {
     private ref: ChangeDetectorRef) {
       this.players = [];
 
-     
+      for (let i = 0; i < europianCountries.length; i++) {
+        this.players.push({name:europianCountries[i]});
+    }
      }
 
     ngOnChanges(changes:SimpleChanges){
@@ -27,26 +30,7 @@ export class HomeComponent implements AfterViewInit,OnChanges {
 
   ngAfterViewInit() {
     
-    index.search('',(content, err)=> {
-      if(err==null){
-        if(content.hits!=null){
-          this.players=[];
-         
-          content.hits.forEach(hit=>this.players.push(hit));
-          if(this.players.length>0)console.log('players length=',this.players.length);
-        }       
-        if(this.listView!=null){
-          console.log('list view is not null');
-          this.listView.refresh();
-          console.log('list view size',this.listView.getActualSize());
-          this.ref.markForCheck();
-        }
-      }
-      else{
-        console.log('error',err);
-      }
-
-    });
+   
     
   }
   onListViewLoaded(args){
