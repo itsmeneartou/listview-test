@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, AfterViewInit, OnChanges, SimpleChanges } from '@angular/core';
+import { Component,  ChangeDetectionStrategy, ChangeDetectorRef, AfterViewInit, OnChanges, SimpleChanges } from '@angular/core';
 import {Algolia} from "nativescript-algolia";
 import { ListView } from "tns-core-modules/ui/list-view";
 var client = new Algolia('702V7C2Q3E', 'aa6e6b1af25d06c9d5def0c1de7e6a36');
